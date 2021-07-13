@@ -24,6 +24,7 @@ namespace CookBookApi.Controllers
         [HttpGet]
         public List<Recipe> GetRecipes()
         {
+            // needed for eager loading
             List<Recipe> recipes = _context.Recipes.Include(ingredients => ingredients.Ingredients).ToList();
             return recipes;
         }
@@ -56,7 +57,7 @@ namespace CookBookApi.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Recipe>> PutRecipe(Guid id, Recipe recipe)
         {
             if(id != recipe.Id)
